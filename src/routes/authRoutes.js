@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { celebrate, Segments } from 'celebrate';
 import {
   registerUser,
   loginUser,
@@ -16,11 +17,11 @@ import {
 
 const router = Router();
 
-router.post('/auth/register', registerUserSchema, registerUser);
-router.post('/auth/login', loginUserSchema, loginUser);
+router.post('/auth/register', celebrate({ [Segments.BODY]: registerUserSchema }), registerUser);
+router.post('/auth/login', celebrate({ [Segments.BODY]: loginUserSchema }), loginUser);
 router.post('/auth/refresh', refreshUserSession);
 router.post('/auth/logout', logoutUser);
-router.post('/auth/request-reset-email', requestResetEmailSchema, requestResetEmail);
-router.post('/auth/reset-password', resetPasswordSchema, resetPassword);
+router.post('/auth/request-reset-email', celebrate({ [Segments.BODY]: requestResetEmailSchema }), requestResetEmail);
+router.post('/auth/reset-password', celebrate({ [Segments.BODY]: resetPasswordSchema }), resetPassword);
 
 export default router;

@@ -23,6 +23,6 @@ export const requestResetEmailSchema = celebrate({
 export const resetPasswordSchema = celebrate({
   [Segments.BODY]: Joi.object({
     token: Joi.string().required(),
-    password: Joi.string().required(),
+    password: Joi.string().min(8).required(),
   }),
 });
